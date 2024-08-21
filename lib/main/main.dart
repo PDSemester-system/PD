@@ -12,8 +12,7 @@ import 'package:spaghetti/opinion/OpinionService.dart';
 import 'package:spaghetti/quiz/QuizService.dart';
 
 void main() {
-  runApp(
-    MyApp()
+  runApp(MyApp()
       // DevicePreview(
       //   enabled: !kReleaseMode, // 릴리즈 모드가 아닌 경우에만 활성화
       //   builder: (context) => MyApp(),
@@ -26,8 +25,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.top]);
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+    //   overlays: [SystemUiOverlay.top]);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ClassroomService()),

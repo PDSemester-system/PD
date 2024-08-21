@@ -277,7 +277,7 @@ class _EditClassDialogState extends State<EditClassDialog> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 10),
+                        // SizedBox(height: 10),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xfff7f8fc),
@@ -373,7 +373,7 @@ class _EditClassDialogState extends State<EditClassDialog> {
                               ),
                               Text(
                                 "-",
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(color: Color(0xff789bd0)),
                               ),
                             ],
                           ),

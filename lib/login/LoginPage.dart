@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                     Text('수업은 언제나',
                         style:
                             TextStyle(fontSize: 20, color: Color(0xff696868))),
-                    Text('에코(Echo) 클래스룸', style: TextStyle(fontSize: 25)),
+                    Text('Edu Connect', style: TextStyle(fontSize: 25)),
                     Text('$name, 반가워요!',
                         style:
                             TextStyle(fontSize: 17, color: Color(0xff696868))),
