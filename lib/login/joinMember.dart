@@ -101,7 +101,7 @@ class _JoinmemberState extends State<Joinmember> {
         child: Theme(
           data: ThemeData(
             colorScheme: ColorScheme.light(
-              primary: Color(0xfffbaf01), // active step color
+              primary: Color(0xFF7E57C2), // active step color
               onPrimary: Colors.white, // active text color
               secondary: Colors.grey, // inactive step color
               onSecondary: Colors.black, // inactive text color
@@ -223,7 +223,7 @@ class _JoinmemberState extends State<Joinmember> {
                           width: double.infinity,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xfffbaf01),
+                              backgroundColor: Colors.deepPurple[400],
                               foregroundColor: Colors.white,
                             ),
                             onPressed: continued,
@@ -345,7 +345,7 @@ class _JoinmemberState extends State<Joinmember> {
                   key: _formKey5,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xfffbaf01),
+                      backgroundColor: Colors.deepPurple[400],
                       foregroundColor: Colors.white,
                     ),
                     onPressed: () async {
@@ -400,7 +400,7 @@ class _JoinmemberState extends State<Joinmember> {
                                       minimumSize:
                                           Size(screenWidth * 0.8, 50), // 버튼을 길게
                                       backgroundColor:
-                                          Color(0xfffbaf01), // 버튼 색상
+                                          Colors.deepPurple[400], // 버튼 색상
                                       foregroundColor:
                                           Colors.white, // 버튼 텍스트 색상
                                     ),
@@ -459,7 +459,7 @@ class _JoinmemberState extends State<Joinmember> {
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xfffbaf01),
+                        backgroundColor: Colors.deepPurple[400],
                         foregroundColor: Colors.white,
                       ),
                       onPressed: details.onStepContinue,
@@ -467,8 +467,8 @@ class _JoinmemberState extends State<Joinmember> {
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xffFFF5DB),
-                        foregroundColor: Color(0xfffbaf01),
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.deepPurple[400],
                       ),
                       onPressed: details.onStepCancel,
                       child: Text('Cancel'),

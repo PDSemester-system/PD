@@ -336,6 +336,7 @@ class _EditClassDialogState extends State<EditClassDialog> {
                                                     context,
                                                     widget.classRoomData!
                                                         .classId);
+                                                        
                                                 Navigator.of(context)
                                                     .pop(); // 모달 닫기
                                                 Navigator.pushReplacement(

@@ -119,8 +119,8 @@ class StartPageState extends State<StartPage> {
               height: screenWidth * 0.12,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff789bd0),
-                  surfaceTintColor: Color(0xff789bd0),
+                  backgroundColor: Colors.deepPurple[400],
+                  surfaceTintColor: Colors.deepPurple[400],
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -153,8 +153,8 @@ class StartPageState extends State<StartPage> {
               height: screenWidth * 0.12,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xfffbaf01),
-                  surfaceTintColor: Color(0xfffbaf01),
+                  backgroundColor: Colors.purple[300],
+                  surfaceTintColor: Colors.purple[300],
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),

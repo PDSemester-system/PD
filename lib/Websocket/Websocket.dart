@@ -11,6 +11,7 @@ import 'package:spaghetti/classroom/student/classEnterPage.dart';
 import 'package:spaghetti/member/User.dart';
 import 'package:spaghetti/opinion/Opinion.dart';
 import 'package:spaghetti/opinion/OpinionService.dart';
+import 'package:spaghetti/opinion/OpinionVote.dart';
 import 'package:spaghetti/quiz/Quiz.dart';
 import 'package:spaghetti/quiz/QuizService.dart';
 import 'package:stomp_dart_client/stomp_dart_client.dart';
@@ -70,6 +71,16 @@ class Websocket {
                 //  message.opinion?.opinionId;
                 Provider.of<OpinionService>(context, listen: false)
                     .voteAdd(message.opinion);
+                List<OpinionVote> list =
+                    Provider.of<OpinionService>(context, listen: false)
+                        .countList;
+                int total = list.length;
+                for (int i = 0; i < list.length; i++) {
+                  if ((total / 3) <= list[i].count) {
+                    await Dialogs.showErrorDialog(context,
+                        "${Provider.of<OpinionService>(context, listen: false).opinionList[i].opinion}");
+                  }
+                }
               }
             }
             break;

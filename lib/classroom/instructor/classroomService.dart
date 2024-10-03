@@ -172,7 +172,7 @@ class ClassroomService extends ChangeNotifier {
             notifyListeners();
           }
         }
-
+        
         var opinionService =
             Provider.of<OpinionService>(context, listen: false);
         opinionService.deleteAll();
