@@ -22,6 +22,18 @@ class _AddClassDialogState extends State<AddClassDialog> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final opinionService =
+          Provider.of<OpinionService>(context, listen: false);
+      List<Opinion> opinionList = opinionService.opinionList;
+
+      if (opinionList.isEmpty) {
+        opinionService.addOpinion(opinion: Opinion(opinion: "수업속도가 빨라요"));
+        opinionService.addOpinion(opinion: Opinion(opinion: "수업속도가 느려요"));
+        opinionService.addOpinion(opinion: Opinion(opinion: "이해하지 못했어요"));
+      }
+    });
   }
 
   @override
@@ -160,6 +172,12 @@ class _AddClassDialogState extends State<AddClassDialog> {
                               padding: EdgeInsets.zero, // ListView의 패딩을 없앰
                               itemCount: opinionList.length,
                               itemBuilder: (context, index) {
+                                TextEditingController _controller =
+                                    TextEditingController(
+                                  text: opinionList[index]
+                                      .opinion, // opinionList에서 값이 있으면 초기화
+                                );
+
                                 return Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 4.0),
@@ -168,13 +186,13 @@ class _AddClassDialogState extends State<AddClassDialog> {
                                     width: screenWidth * 0.8,
                                     height: screenHeight * 0.07,
                                     child: TextField(
+                                      controller: _controller,
                                       onChanged: (value) {
                                         opinionService.updateOpinion(
                                             index, Opinion(opinion: value));
                                       },
                                       decoration: InputDecoration(
-                                        fillColor:
-                                            Color(0xfff7f8fc),
+                                        fillColor: Color(0xfff7f8fc),
                                         filled: true,
                                         enabledBorder: OutlineInputBorder(
                                           borderRadius:

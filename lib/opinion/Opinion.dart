@@ -1,4 +1,3 @@
-
 import 'package:spaghetti/classroom/classroom.dart';
 
 class Opinion {

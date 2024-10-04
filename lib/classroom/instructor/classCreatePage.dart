@@ -61,7 +61,7 @@ class _MyWidgetState extends State<ClassCreatePage> {
       return Scaffold(
         resizeToAvoidBottomInset: false, // 키보드 오버플로우 방지
         body: PageView(
-          children: [ 
+          children: [
             Container(
               child: Stack(
                 children: [
@@ -362,7 +362,6 @@ class _MyWidgetState extends State<ClassCreatePage> {
                             listen: false);
                         classroomService.sendPinToServer(context, loginnumber);
                       },
-
                     ),
                   ),
                   // logout 아이콘의 Positioned 위치
