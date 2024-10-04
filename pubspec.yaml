@@ -54,6 +54,8 @@ dependencies:
   stomp_dart_client: ^2.0.0
   screenshot: ^3.0.0
   image_gallery_saver: ^1.7.1
+  weekday_selector:
+    path: ./local_packages/weekday_selector
   
 dev_dependencies:
   flutter_test:
