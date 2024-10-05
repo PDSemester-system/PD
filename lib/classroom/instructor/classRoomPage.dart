@@ -62,7 +62,7 @@ class _ClassRoomPageState extends State<ClassRoomPage> {
   Future<void> _initializeWebsocket() async {
     String classId = widget.classRoomData!.classId;
     jwt = await storage.read(key: "Authorization") ?? "";
-    websocket = await Websocket(classId, user, jwt, context);
+    websocket = Websocket(classId, user, jwt, context);
     userCount?.evaluationList = [0, 0, 0, 0, 0];
   }
 

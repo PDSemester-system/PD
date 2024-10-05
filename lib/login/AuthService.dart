@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:spaghetti/ApiUrl.dart';
+import 'package:spaghetti/Dialog/Dialogs.dart';
 import 'package:spaghetti/classroom/classroom.dart';
 import 'package:spaghetti/classroom/student/Enrollment.dart';
 import 'package:spaghetti/main/startPage.dart';
@@ -18,6 +20,32 @@ class AuthService {
   final storage = FlutterSecureStorage();
   BuildContext context;
   AuthService(this.context);
+
+  Future<void> fcmTokenRegister(User user, var token) async {
+    try {
+      print("fcmToken: ${token}");
+      var response = await http.post(
+        Uri.parse('$apiUrl/fcm'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(
+          <String, String>{
+            "id": user.id,
+            "fcmToken": token.toString(),
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        return;
+      } else {
+        //서버 오류로 인해 다시 로그인 해주세요
+        Dialogs.showErrorDialog(context, "서버 오류로 인해 다시 로그인 해주세요");
+      }
+    } catch (e) {
+      Dialogs.showErrorDialog(context, "시스템에러 인해 다시 로그인 해주세요");
+    }
+  }
 
   Future<http.Response> login(
       String email, String password, String role) async {
@@ -40,10 +68,13 @@ class AuthService {
         // response.body를 JSON으로 파싱하여 토큰 추출
         var token = response.headers['authorization'];
         // FlutterSecureStorage에 토큰 저장
-
         startTokenDeletionTimer(context);
-
         await storage.write(key: 'Authorization', value: token);
+        User user = parseUser(json.decode(response.body));
+        var fcmToken =
+            await FirebaseMessaging.instance.getToken(); //서버로 부터 token 가져오기
+        fcmTokenRegister(user, fcmToken);
+        //로그인 성공 시 서버에 token 저장
       } else {}
 
       return response;

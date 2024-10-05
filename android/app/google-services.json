@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "432754699040",
+    "project_id": "educonnect-dc136",
+    "storage_bucket": "educonnect-dc136.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432754699040:android:a27f3c0ef96a0493e74545",
+        "android_client_info": {
+          "package_name": "com.example.spaghetti"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLwotGqekGKQ_Kbg5_aosZxznBBcfKM_U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

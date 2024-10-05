@@ -172,7 +172,7 @@ class _AddClassDialogState extends State<AddClassDialog> {
                               padding: EdgeInsets.zero, // ListView의 패딩을 없앰
                               itemCount: opinionList.length,
                               itemBuilder: (context, index) {
-                                TextEditingController _controller =
+                                TextEditingController controller =
                                     TextEditingController(
                                   text: opinionList[index]
                                       .opinion, // opinionList에서 값이 있으면 초기화
@@ -186,7 +186,7 @@ class _AddClassDialogState extends State<AddClassDialog> {
                                     width: screenWidth * 0.8,
                                     height: screenHeight * 0.07,
                                     child: TextField(
-                                      controller: _controller,
+                                      controller: controller,
                                       onChanged: (value) {
                                         opinionService.updateOpinion(
                                             index, Opinion(opinion: value));
