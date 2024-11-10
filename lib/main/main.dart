@@ -74,7 +74,7 @@ void main() async {
     'Default Channel', // 채널 이름
     importance: Importance.defaultImportance, // 중요도
   );
-
+ 
   // flutter_local_notifications 초기화
   const AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('@mipmap/ic_launcher');

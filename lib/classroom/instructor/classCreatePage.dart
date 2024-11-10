@@ -64,12 +64,12 @@ class _MyWidgetState extends State<ClassCreatePage> {
               child: Stack(
                 children: [
                   Positioned(
-                    left: screenWidth * 0.13,
-                    top: screenHeight * 0.11,
+                    left: screenWidth * -0.02,
+                    top: screenHeight * 0.047,
                     child: Image.asset(
                       'assets/images/profil1.png',
-                      width: screenWidth * 0.15,
-                      height: screenWidth * 0.15,
+                      width: screenWidth * 0.4,
+                      height: screenWidth * 0.4,
                     ),
                   ),
                   Positioned(
