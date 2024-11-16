@@ -108,7 +108,7 @@ class _ClassEnterPageState extends State<ClassEnterPage> {
                                     Icon(
                                       Icons.book,
                                       size: screenWidth * 0.1,
-                                      color: Colors.blue,
+                                      color: Colors.deepPurple[400],
                                     ), // 작은 아이콘 추가
                                     SizedBox(width: 10),
                                     Expanded(
@@ -248,8 +248,8 @@ class _ClassEnterPageState extends State<ClassEnterPage> {
                       height: 50,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xfffbaf01),
-                          surfaceTintColor: Color(0xfffbaf01),
+                          backgroundColor: Colors.deepPurple[400],
+                          surfaceTintColor: Colors.deepPurple[400],
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -288,8 +288,8 @@ class _ClassEnterPageState extends State<ClassEnterPage> {
                       height: 50,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff789bd0),
-                          surfaceTintColor: Color(0xff789bd0),
+                          backgroundColor: Color(0xfff7f8fc),
+                          surfaceTintColor: Color(0xfff7f8fc),
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -405,7 +405,7 @@ class _ClassEnterPageState extends State<ClassEnterPage> {
                                           ElevatedButton(
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
-                                                  Color(0xff789bd0),
+                                                  Colors.deepPurple[400],
                                               foregroundColor: Colors.white,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
@@ -458,7 +458,9 @@ class _ClassEnterPageState extends State<ClassEnterPage> {
                         },
                         child: Text(
                           "번호로 입장하기",
-                          style: TextStyle(fontSize: screenWidth * 0.04),
+                          style: TextStyle(
+                              fontSize: screenWidth * 0.04,
+                              color: Colors.deepPurple[400]),
                         ),
                       ),
                     ),
@@ -476,7 +478,7 @@ class _ClassEnterPageState extends State<ClassEnterPage> {
                         isEditing ? '확인' : '편집',
                         style: TextStyle(
                           fontSize: screenWidth * 0.04,
-                          color: Color(0xff789bd0),
+                          color: Colors.deepPurple[400],
                         ),
                       ),
                     ),
@@ -531,7 +533,7 @@ class _ClassEnterPageState extends State<ClassEnterPage> {
                                           child: Text(
                                             '취소',
                                             style: TextStyle(
-                                              color: Color(0xff789bd0),
+                                              color: Colors.deepPurple[400],
                                             ),
                                           ),
                                         ),
@@ -552,7 +554,8 @@ class _ClassEnterPageState extends State<ClassEnterPage> {
                                             );
                                           },
                                           style: ElevatedButton.styleFrom(
-                                            backgroundColor: Color(0xff789bd0),
+                                            backgroundColor:
+                                                Colors.deepPurple[400],
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(8),

@@ -192,8 +192,8 @@ class _EditClassDialogState extends State<EditClassDialog> {
                       children: [
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xff789bd0),
-                            surfaceTintColor: Color(0xff789bd0),
+                            backgroundColor: Colors.deepPurple[400],
+                            surfaceTintColor: Colors.deepPurple[400],
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -336,7 +336,7 @@ class _EditClassDialogState extends State<EditClassDialog> {
                                                     context,
                                                     widget.classRoomData!
                                                         .classId);
-                                                        
+
                                                 Navigator.of(context)
                                                     .pop(); // 모달 닫기
                                                 Navigator.pushReplacement(
@@ -370,11 +370,11 @@ class _EditClassDialogState extends State<EditClassDialog> {
                             children: [
                               Text(
                                 "수업 삭제하기",
-                                style: TextStyle(color: Color(0xff789bd0)),
+                                style: TextStyle(color: Colors.deepPurple[400]),
                               ),
                               Text(
                                 "-",
-                                style: TextStyle(color: Color(0xff789bd0)),
+                                style: TextStyle(color: Colors.deepPurple[400]),
                               ),
                             ],
                           ),

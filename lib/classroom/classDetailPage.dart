@@ -235,7 +235,7 @@ class _ClassDetailPageState extends State<classDetailPage> {
                       height: screenHeight * 0.06,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff789bd0),
+                          backgroundColor: Colors.deepPurple[400],
                           surfaceTintColor: Color.fromARGB(255, 228, 228, 228),
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(

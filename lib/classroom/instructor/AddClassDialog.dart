@@ -34,7 +34,7 @@ class _AddClassDialogState extends State<AddClassDialog> {
   List<bool> selectedDays = List.filled(7, false);
   Map<int, TimeOfDay?> selectedTimes = {};
   TimeOfDay selectedTime = TimeOfDay.now();
-  List<List<dynamic>> timeList = [];
+  List<dynamic> timeList = [];
 
   final List<String> weekDays = [
     '일요일', // 6
@@ -334,8 +334,11 @@ class _AddClassDialogState extends State<AddClassDialog> {
                                     '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}'
                                   ]);
                                 }
-                                print(timeList);
                               });
+                              List<String> output = timeList.map((entry) {
+                                return '${entry[0]}, ${entry[1]}'; // 각 요소를 문자열로 변환
+                              }).toList();
+                              print(timeList);
                               setState(() {
                                 isLoading = true;
                               });
@@ -343,7 +346,8 @@ class _AddClassDialogState extends State<AddClassDialog> {
                                   context,
                                   className,
                                   opinionList,
-                                  opinionService); //??:의견 추가안했을 때는 빈 배열
+                                  opinionService,
+                                  output); //??:의견 추가안했을 때는 빈 배열
                               setState(() {
                                 isLoading = false;
                               });

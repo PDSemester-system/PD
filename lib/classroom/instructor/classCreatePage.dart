@@ -128,7 +128,7 @@ class _MyWidgetState extends State<ClassCreatePage> {
                                     Icon(
                                       icon,
                                       size: screenWidth * 0.1,
-                                      color: Colors.blue,
+                                      color: Colors.purple[300],
                                     ), // 작은 아이콘 추가
                                     SizedBox(width: 10),
                                     Expanded(
@@ -249,8 +249,8 @@ class _MyWidgetState extends State<ClassCreatePage> {
                       height: screenHeight * 0.06, // 화면 너비의 80%
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff789ad0),
-                          surfaceTintColor: Color(0xff789ad0),
+                          backgroundColor: Colors.deepPurple[400],
+                          surfaceTintColor: Colors.deepPurple[400],
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -413,7 +413,8 @@ class _MyWidgetState extends State<ClassCreatePage> {
                                           child: Text('취소',
                                               style: TextStyle(
                                                   fontFamily: "NanumEB",
-                                                  color: Color(0xff789bd0))),
+                                                  color:
+                                                      Colors.deepPurple[400])),
                                         ),
                                       ),
                                       SizedBox(width: 10), // 버튼 사이 간격
@@ -435,7 +436,8 @@ class _MyWidgetState extends State<ClassCreatePage> {
                                             );
                                           },
                                           style: ElevatedButton.styleFrom(
-                                            backgroundColor: Color(0xff789bd0),
+                                            backgroundColor:
+                                                Colors.deepPurple[400],
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(8),

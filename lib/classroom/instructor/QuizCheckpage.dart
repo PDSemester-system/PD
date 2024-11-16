@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
@@ -125,7 +124,7 @@ class _QuizCheckPage extends State<QuizCheckPage> {
       ),
       plotAreaBorderWidth: 0,
       tooltipBehavior: TooltipBehavior(enable: true),
-      series: <ChartSeries<OpinionData, String>>[
+      series: <CartesianSeries<OpinionData, String>>[
         BarSeries<OpinionData, String>(
           dataSource: chartData,
           xValueMapper: (OpinionData data, _) => data.opinion,
@@ -221,7 +220,7 @@ class _BarChartExampleState extends State<BarChartExample> {
           plotAreaBorderWidth: 0,
           legend: Legend(isVisible: false),
           tooltipBehavior: TooltipBehavior(enable: true),
-          series: <ChartSeries<QuizData, String>>[
+          series: <CartesianSeries<QuizData, String>>[
             BarSeries<QuizData, String>(
               spacing: 0.2,
               dataSource: sortedData,

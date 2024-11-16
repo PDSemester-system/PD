@@ -299,7 +299,7 @@ class _ClassRoomPageState extends State<ClassRoomPage> {
                                     SizedBox(height: 50),
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: Color(0xff789bd0),
+                                        backgroundColor: Colors.deepPurple[400],
                                         foregroundColor: Colors.white,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -450,7 +450,7 @@ void showQRCodeModal(BuildContext context, String classNumber) {
               SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff789bd0),
+                  backgroundColor: Colors.deepPurple[400],
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -575,7 +575,7 @@ class _BarChartExampleState extends State<BarChartExample> {
           plotAreaBorderWidth: 0,
           legend: Legend(isVisible: false),
           tooltipBehavior: TooltipBehavior(enable: true),
-          series: <ChartSeries<OpinionData, String>>[
+          series: <CartesianSeries<OpinionData, String>>[
             BarSeries<OpinionData, String>(
               spacing: 0.2,
               dataSource: sortedData,

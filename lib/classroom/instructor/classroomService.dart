@@ -69,8 +69,12 @@ class ClassroomService extends ChangeNotifier {
   }
 
   //@controller("/classrooms")
-  Future<void> classroomCreate(BuildContext context, String className,
-      List<Opinion> opinionList, OpinionService opinionService) async {
+  Future<void> classroomCreate(
+      BuildContext context,
+      String className,
+      List<Opinion> opinionList,
+      OpinionService opinionService,
+      List<String> classTime) async {
     List<String> ops = [];
 
     for (var op in opinionList) {
@@ -101,6 +105,7 @@ class ClassroomService extends ChangeNotifier {
     var body = jsonEncode({
       'className': className,
       'ops': ops,
+      'startTime': classTime,
     });
     try {
       var response = await http.post(
@@ -172,7 +177,7 @@ class ClassroomService extends ChangeNotifier {
             notifyListeners();
           }
         }
-        
+
         var opinionService =
             Provider.of<OpinionService>(context, listen: false);
         opinionService.deleteAll();

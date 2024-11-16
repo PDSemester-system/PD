@@ -156,7 +156,7 @@ class _EvaluationResultPage extends State<EvaluationResultPage> {
       ),
       plotAreaBorderWidth: 0,
       tooltipBehavior: TooltipBehavior(enable: true),
-      series: <ChartSeries<OpinionData, String>>[
+      series: <CartesianSeries<OpinionData, String>>[
         BarSeries<OpinionData, String>(
           dataSource: chartData,
           xValueMapper: (OpinionData data, _) => data.opinion,
