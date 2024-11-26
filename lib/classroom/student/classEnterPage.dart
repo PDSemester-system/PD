@@ -57,33 +57,6 @@ class _ClassEnterPageState extends State<ClassEnterPage> {
               child: Stack(
                 children: [
                   if (isLoading) CircularProgress.build(),
-
-                  //테스트
-                  Positioned(
-                    left: screenWidth * 0.3,
-                    top: screenHeight * 0.047,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepPurple[400],
-                        surfaceTintColor: Colors.deepPurple[400],
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      onPressed: () {
-                        TimeDialog(context);
-                      },
-                      child: Text(
-                        "테스트",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: screenWidth * 0.035,
-                          fontFamily: 'NanumEB',
-                        ),
-                      ),
-                    ),
-                  ),
                   Positioned(
                     left: screenWidth * -0.02,
                     top: screenHeight * 0.047,

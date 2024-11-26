@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
@@ -11,11 +13,12 @@ import 'package:spaghetti/member/User.dart';
 import 'package:spaghetti/member/UserProvider.dart';
 import 'package:spaghetti/opinion/Opinion.dart';
 import 'package:spaghetti/opinion/OpinionService.dart';
+import 'student/TimeDialog.dart';
 import 'student/quiz_add_class_dialog.dart';
+import 'dart:math';
 
 class classDetailPage extends StatefulWidget {
   final Classroom classroom;
-
   const classDetailPage({super.key, required this.classroom});
 
   @override
@@ -23,6 +26,11 @@ class classDetailPage extends StatefulWidget {
 }
 
 class _ClassDetailPageState extends State<classDetailPage> {
+  late Timer _timer; // 타이머 선언
+  bool isDialogActive = false; // 다이얼로그 중복 방지 플래그
+  int dialogCount = 0; // 다이얼로그가 표시된 횟수
+  int buttonClickCount = 0;
+
   TextEditingController contentController = TextEditingController();
   int? selectedRadio = 0;
   Websocket? websocket;
@@ -37,10 +45,53 @@ class _ClassDetailPageState extends State<classDetailPage> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
+    scheduleNextDialog();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _webSocketFuture = _initializeWebsocket();
       // _checkClassStart();
       Provider.of<OpinionService>(context, listen: false).setOpinionSend(true);
+    });
+  }
+
+  Future<void> TimeDialog(BuildContext context) async {
+    await showModalBottomSheet(
+      context: context,
+      isDismissible: false,
+      isScrollControlled: true,
+      enableDrag: false,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
+      builder: (context) => ProgressBottomSheet(
+        initialButtonClickCount: buttonClickCount,
+        onButtonClickCountChanged: (count) {
+          setState(() {
+            buttonClickCount = count; // 버튼 클릭 횟수 업데이트
+          });
+        },
+      ),
+    );
+  }
+
+  void scheduleNextDialog() {
+    // 10분(600초)에서 20분(1200초) 사이 랜덤 초 생성
+    int randomInterval = Random().nextInt(601) + 600; // 600 ~ 1200초 사이
+
+    _timer = Timer(Duration(seconds: randomInterval), () async {
+      if (!isDialogActive) {
+        isDialogActive = true; // 다이얼로그 활성화 플래그 설정
+
+        // 다이얼로그 실행 및 카운트 증가
+        setState(() {
+          dialogCount++;
+        });
+
+        await TimeDialog(context);
+
+        // 다이얼로그 종료 후 플래그 초기화 및 타이머 재설정
+        isDialogActive = false;
+        scheduleNextDialog();
+      }
     });
   }
 
@@ -64,6 +115,7 @@ class _ClassDetailPageState extends State<classDetailPage> {
     websocket?.stomClient(jwt, context).deactivate(); // websocket 연결 해제
     _scrollController.dispose();
     _opinionService?.deleteAll();
+    _timer.cancel(); // 타이머 정리
     super.dispose();
   }
 
@@ -71,6 +123,8 @@ class _ClassDetailPageState extends State<classDetailPage> {
   Widget build(BuildContext context) {
     return Consumer3<ClassroomService, OpinionService, UserCount>(
         builder: (context, classService, opinionService, userCount, child) {
+      // 첫 다이얼로그 스케줄링
+
       List<Classroom> classList = classService.classroomList;
       List<Opinion> opinionList = opinionService.opinionList ?? [];
 
@@ -126,6 +180,17 @@ class _ClassDetailPageState extends State<classDetailPage> {
                           fontWeight: FontWeight.w100,
                           fontFamily: 'NanumB',
                         )),
+                  ),
+                  Positioned(
+                    left: screenWidth * 0.11,
+                    top: screenHeight * 0.08,
+                    child:
+                        Text('수업 집중도:${buttonClickCount ?? 0} / ${dialogCount}',
+                            style: TextStyle(
+                              fontSize: screenWidth * 0.035,
+                              fontWeight: FontWeight.w100,
+                              fontFamily: 'NanumB',
+                            )),
                   ),
                   Positioned(
                     left: screenWidth * 0.1,

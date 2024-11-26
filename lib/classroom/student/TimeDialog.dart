@@ -1,27 +1,20 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-Future<void> TimeDialog(BuildContext context) async {
-  await showModalBottomSheet(
-    context: context,
-    isDismissible: false,
-    isScrollControlled: true,
-    enableDrag: false,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(30),
-    ),
-    builder: (context) => const ProgressBottomSheet(),
-  );
-}
-
 class ProgressBottomSheet extends StatefulWidget {
-  const ProgressBottomSheet({super.key});
+  final int initialButtonClickCount;
+  final Function(int) onButtonClickCountChanged;
+  const ProgressBottomSheet(
+      {super.key,
+      required this.initialButtonClickCount,
+      required this.onButtonClickCountChanged});
 
   @override
   _ProgressBottomSheetState createState() => _ProgressBottomSheetState();
 }
 
 class _ProgressBottomSheetState extends State<ProgressBottomSheet> {
+  late int buttonClickCount;
   static const int durationInSeconds = 10;
   int elapsedSeconds = 0;
   double progressValue = 0.0;
@@ -30,6 +23,7 @@ class _ProgressBottomSheetState extends State<ProgressBottomSheet> {
   @override
   void initState() {
     super.initState();
+    buttonClickCount = widget.initialButtonClickCount;
     // 타이머 시작
     timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
       setState(() {
@@ -96,6 +90,11 @@ class _ProgressBottomSheetState extends State<ProgressBottomSheet> {
                 ),
                 onPressed: () {
                   // 버튼을 눌렀을 때 타이머를 취소하고 BottomSheet 닫기
+                  setState(() {
+                    buttonClickCount++; // 버튼 클릭 카운트 증가
+                  });
+                  widget.onButtonClickCountChanged(
+                      buttonClickCount); // 부모에게 카운트 전달
                   if (timer.isActive) {
                     timer.cancel();
                   }

@@ -77,8 +77,8 @@ class Websocket {
                 int total = list.length;
                 for (int i = 0; i < list.length; i++) {
                   if ((total / 3) <= list[i].count) {
-                    await Dialogs.showErrorDialog(context,
-                        Provider.of<OpinionService>(context, listen: false).opinionList[i].opinion);
+                    //await Dialogs.showErrorDialog(context,
+                    //  Provider.of<OpinionService>(context, listen: false).opinionList[i].opinion);
                   }
                 }
               }
