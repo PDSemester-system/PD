@@ -17,6 +17,7 @@ class OpinionService extends ChangeNotifier {
   //의견제출버튼 true or false 동작
   void setOpinionSend(bool value) {
     opinionSend = value; // 무한 의견
+    updateCountList();
     notifyListeners();
   }
 

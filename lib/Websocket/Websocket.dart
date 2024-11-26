@@ -66,20 +66,18 @@ class Websocket {
         switch (message.status) {
           case Status.OPINION:
             // 의견 제출 처리
-            if (user?.role == "instructor") {
-              if (message.opinion?.opinionId != null) {
-                //  message.opinion?.opinionId;
-                Provider.of<OpinionService>(context, listen: false)
-                    .voteAdd(message.opinion);
-                List<OpinionVote> list =
-                    Provider.of<OpinionService>(context, listen: false)
-                        .countList;
-                int total = list.length;
-                for (int i = 0; i < list.length; i++) {
-                  if ((total / 3) <= list[i].count) {
-                    //await Dialogs.showErrorDialog(context,
-                    //  Provider.of<OpinionService>(context, listen: false).opinionList[i].opinion);
-                  }
+
+            if (message.opinion?.opinionId != null) {
+              //  message.opinion?.opinionId;
+              Provider.of<OpinionService>(context, listen: false)
+                  .voteAdd(message.opinion);
+              List<OpinionVote> list =
+                  Provider.of<OpinionService>(context, listen: false).countList;
+              int total = list.length;
+              for (int i = 0; i < list.length; i++) {
+                if ((total / 3) <= list[i].count) {
+                  //await Dialogs.showErrorDialog(context,
+                  //  Provider.of<OpinionService>(context, listen: false).opinionList[i].opinion);
                 }
               }
             }

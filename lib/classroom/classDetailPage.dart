@@ -13,6 +13,8 @@ import 'package:spaghetti/member/User.dart';
 import 'package:spaghetti/member/UserProvider.dart';
 import 'package:spaghetti/opinion/Opinion.dart';
 import 'package:spaghetti/opinion/OpinionService.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import '../opinion/OpinionVote.dart';
 import 'student/TimeDialog.dart';
 import 'student/quiz_add_class_dialog.dart';
 import 'dart:math';
@@ -30,7 +32,7 @@ class _ClassDetailPageState extends State<classDetailPage> {
   bool isDialogActive = false; // 다이얼로그 중복 방지 플래그
   int dialogCount = 0; // 다이얼로그가 표시된 횟수
   int buttonClickCount = 0;
-
+  bool _usePrimaryScrollbar = true;
   TextEditingController contentController = TextEditingController();
   int? selectedRadio = 0;
   Websocket? websocket;
@@ -212,13 +214,11 @@ class _ClassDetailPageState extends State<classDetailPage> {
                     ),
                   ),
                   Positioned(
-                    left: screenWidth * 0.6,
-                    top: screenHeight < 700
-                        ? screenHeight * -0.001
-                        : screenHeight * 0.01, // 선 위쪽에 배치
+                    left: screenWidth * 0.7,
+                    top: screenHeight * 0.01 - 20, // 선 위쪽에 배치
                     child: Image.asset(
                       'assets/images/opinion.png', // 이미지 경로를 설정해 주세요.
-                      width: screenWidth * 0.3, // 이미지의 너비를 설정해 주세요.
+                      width: screenWidth * 0.2, // 이미지의 너비를 설정해 주세요.
                       height: screenHeight * 0.2, // 이미지의 높이를 설정해 주세요.
                     ),
                   ),
@@ -230,68 +230,117 @@ class _ClassDetailPageState extends State<classDetailPage> {
                             fontSize: screenWidth * 0.035, color: Colors.grey)),
                   ),
                   Positioned(
-                    top: screenHeight * 0.23, // "이전 수업" 텍스트 아래 30px
-                    left: screenWidth * 0.1,
-                    child: Scrollbar(
-                      thumbVisibility: true,
-                      controller: _scrollController,
-                      child: SingleChildScrollView(
-                        controller: _scrollController,
-                        child: SizedBox(
-                          width: screenWidth * 0.8,
-                          height: screenHeight * 0.4,
-                          child: opinionList.isNotEmpty
-                              ? ListView.builder(
-                                  padding: EdgeInsets.zero, // ListView의 패딩을 없앰
-                                  itemCount: opinionList.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8.0),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          setState(() => selectedRadio = index);
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.grey), // 테두리 선 추가
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 16.0),
-                                                child: Text(
-                                                    opinionList[index].opinion),
-                                              ),
-                                              Radio<int>(
-                                                value: index,
-                                                groupValue: selectedRadio,
-                                                onChanged: (int? value) {
-                                                  setState(() =>
-                                                      selectedRadio = value);
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                )
-                              : Center(
-                                  child: Text('의견이 없습니다.'),
-                                ),
+                    left: screenWidth * 0.55,
+                    top: screenHeight * 0.19,
+                    child: SizedBox(
+                      width: screenWidth * 0.35, // 화면 너비의 80%
+                      height: screenHeight * 0.04,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.deepPurple[400],
+                          surfaceTintColor: Color.fromARGB(255, 228, 228, 228),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _usePrimaryScrollbar = !_usePrimaryScrollbar;
+                          });
+                        },
+                        child: Text(
+                          _usePrimaryScrollbar ? '의견현황' : '의견',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: screenWidth * 0.05,
+                          ),
                         ),
                       ),
                     ),
                   ),
+                  Positioned(
+                      top: screenHeight * 0.23, // "이전 수업" 텍스트 아래 30px
+                      left: screenWidth * 0.1,
+                      child: _usePrimaryScrollbar
+                          ? Scrollbar(
+                              thumbVisibility: true,
+                              controller: _scrollController,
+                              child: SingleChildScrollView(
+                                controller: _scrollController,
+                                child: SizedBox(
+                                  width: screenWidth * 0.8,
+                                  height: screenHeight * 0.4,
+                                  child: opinionList.isNotEmpty
+                                      ? ListView.builder(
+                                          padding: EdgeInsets
+                                              .zero, // ListView의 패딩을 없앰
+                                          itemCount: opinionList.length,
+                                          itemBuilder: (context, index) {
+                                            return Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 8.0),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  setState(() =>
+                                                      selectedRadio = index);
+                                                },
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Colors
+                                                            .grey), // 테두리 선 추가
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal:
+                                                                    16.0),
+                                                        child: Text(
+                                                            opinionList[index]
+                                                                .opinion),
+                                                      ),
+                                                      Radio<int>(
+                                                        value: index,
+                                                        groupValue:
+                                                            selectedRadio,
+                                                        onChanged:
+                                                            (int? value) {
+                                                          setState(() =>
+                                                              selectedRadio =
+                                                                  value);
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        )
+                                      : Center(
+                                          child: Text('의견이 없습니다.'),
+                                        ),
+                                ),
+                              ),
+                            )
+                          : RawScrollbar(
+                              child: SizedBox(
+                                width: screenWidth * 0.8,
+                                height: screenHeight * 0.5, // 차트 높이 조정
+                                child: BarChartExample(),
+                              ),
+                            )),
                   Positioned(
                     left: screenWidth * 0.1,
                     top: screenHeight * 0.73,
@@ -355,4 +404,96 @@ Future<void> addDialog(BuildContext context, Websocket? websocket) async {
       return AddClassDialog(websocket);
     },
   );
+}
+
+final List<Color> contentColors = [
+  // 차트 컬러 리스트
+  Color(0xff7b9bcf),
+  Color(0xfff5c369),
+  Color(0xffa4d3fb),
+  Color(0xfff7a3b5),
+  Color(0xfffcb29c),
+  Color(0xffcab3e7), // mainTextcolor
+];
+
+class BarChartExample extends StatefulWidget {
+  const BarChartExample({super.key});
+
+  @override
+  _BarChartExampleState createState() => _BarChartExampleState();
+}
+
+class _BarChartExampleState extends State<BarChartExample> {
+  late SortingOrder _sortingOrder;
+
+  @override
+  void initState() {
+    super.initState();
+    _sortingOrder = SortingOrder.ascending; // 초기 정렬 설정을 오름차순으로 변경
+  }
+
+  void _toggleSortingOrder() {
+    setState(() {
+      _sortingOrder = _sortingOrder == SortingOrder.ascending
+          ? SortingOrder.descending
+          : SortingOrder.ascending;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Consumer2<ClassroomService, OpinionService>(
+          builder: (context, classService, opinionService, child) {
+        List<Opinion> opinionList = opinionService.opinionList; // 옵션 배열
+        List<OpinionVote> opinionCount =
+            opinionService.countList; // 옵션 선택 개수 배열
+
+        List<OpinionData> sortedData =
+            List.generate(opinionList.length, (index) {
+          return OpinionData(
+              opinionList[index].opinion,
+              opinionCount[index].count.toDouble(),
+              contentColors[index % contentColors.length]);
+        });
+
+        sortedData.sort((a, b) => a.count.compareTo(b.count));
+        if (_sortingOrder == SortingOrder.descending) {
+          sortedData = sortedData.reversed.toList();
+        }
+
+        return SfCartesianChart(
+          primaryXAxis: CategoryAxis(
+            majorGridLines: MajorGridLines(width: 0),
+            axisLine: AxisLine(width: 0),
+          ),
+          primaryYAxis: NumericAxis(
+            majorGridLines: MajorGridLines(width: 0),
+            axisLine: AxisLine(width: 0),
+          ),
+          plotAreaBorderWidth: 0,
+          legend: Legend(isVisible: false),
+          tooltipBehavior: TooltipBehavior(enable: true),
+          series: <CartesianSeries<OpinionData, String>>[
+            BarSeries<OpinionData, String>(
+              spacing: 0.2,
+              dataSource: sortedData,
+              xValueMapper: (OpinionData data, _) => data.opinion,
+              yValueMapper: (OpinionData data, _) => data.count,
+              pointColorMapper: (OpinionData data, _) => data.color,
+              dataLabelSettings: DataLabelSettings(isVisible: true),
+            ),
+          ],
+        );
+      }),
+    );
+  }
+}
+
+class OpinionData {
+  OpinionData(this.opinion, this.count, this.color);
+  final String opinion;
+  final double count;
+  final Color color;
 }
