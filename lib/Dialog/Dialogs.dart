@@ -39,7 +39,8 @@ class Dialogs {
           ),
           title: Column(
             children: [
-              Text(className,
+              Text(
+                className,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -71,21 +72,21 @@ class Dialogs {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: Color(0xfffbaf01),
+                            color: Color(0xff7b1fa2),
                             width: 1,
                           ),
                         ),
                         child: CircleAvatar(
                           radius: 20,
                           backgroundColor: selectedRating == ratingValue
-                              ? Color(0xfffbaf01)
+                              ? Color(0xff7b1fa2)
                               : Colors.white,
                           child: Text(
                             '$ratingValue',
                             style: TextStyle(
                               color: selectedRating == ratingValue
                                   ? Colors.white
-                                  : Color(0xfffbaf01),
+                                  : Color(0xff7b1fa2),
                             ),
                           ),
                         ),
@@ -103,7 +104,7 @@ class Dialogs {
                     Navigator.of(context).pop();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xfffbaf01),
+                    backgroundColor: Color(0xff7b1fa2),
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0),

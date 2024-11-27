@@ -32,7 +32,6 @@ class _EvaluationResultPage extends State<EvaluationResultPage> {
 
   @override
   void dispose() {
-    // _disposeWebSocket();
     super.dispose();
   }
 
@@ -51,8 +50,8 @@ class _EvaluationResultPage extends State<EvaluationResultPage> {
   Widget build(BuildContext context) {
     return Consumer<UserCount>(builder: (context, userCount, child) {
       List<int> evaluationList = userCount.evaluationList;
-      double totalScore = 0; //투표 점수
-      int totalReviews = 0; //투표 인원수
+      double totalScore = 0; // 투표 점수
+      int totalReviews = 0; // 투표 인원수
 
       for (int i = 0; i < evaluationList.length; i++) {
         if (evaluationList[i] >= 0) {
@@ -104,7 +103,7 @@ class _EvaluationResultPage extends State<EvaluationResultPage> {
                       Provider.of<OpinionService>(context, listen: false)
                           .deleteAll();
                       Provider.of<QuizService>(context,
-                              listen: false) //방 삭제시 퀴즈 빠이빠이
+                              listen: false) // 방 삭제시 퀴즈 초기화
                           .initializeQuizList();
                       Navigator.push(
                         context,
@@ -114,7 +113,7 @@ class _EvaluationResultPage extends State<EvaluationResultPage> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xfffbaf01),
+                      backgroundColor: Color(0xff4a148c),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
@@ -135,11 +134,11 @@ class _EvaluationResultPage extends State<EvaluationResultPage> {
   static Widget _buildRatingChart(List<int> evaluationList) {
     List<OpinionData> chartData = List.generate(5, (index) {
       List<Color> colors = [
-        Color(0xfffcb29c),
-        Color(0xfff7a3b5),
-        Color(0xffa4d3fb),
-        Color(0xfff5c369),
-        Color(0xff7b9bcf),
+        Color(0xffce93d8), // 밝은 퍼플
+        Color(0xffba68c8), // 중간 밝기의 퍼플
+        Color(0xffab47bc), // 보라색
+        Color(0xff8e24aa), // 진한 퍼플
+        Color(0xff7b1fa2),
       ];
       return OpinionData((index + 1).toString(),
           evaluationList[index].toDouble(), colors[index]);
@@ -157,7 +156,8 @@ class _EvaluationResultPage extends State<EvaluationResultPage> {
       plotAreaBorderWidth: 0,
       tooltipBehavior: TooltipBehavior(enable: true),
       series: <CartesianSeries<OpinionData, String>>[
-        BarSeries<OpinionData, String>(
+        ColumnSeries<OpinionData, String>(
+          // ColumnSeries로 변경하여 세로 막대 그래프 사용
           dataSource: chartData,
           xValueMapper: (OpinionData data, _) => data.opinion,
           yValueMapper: (OpinionData data, _) => data.count,

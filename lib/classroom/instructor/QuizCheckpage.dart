@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
@@ -82,7 +83,7 @@ class _QuizCheckPage extends State<QuizCheckPage> {
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xfffbaf01),
+                      backgroundColor: Color(0xff8e24aa),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
@@ -99,146 +100,130 @@ class _QuizCheckPage extends State<QuizCheckPage> {
       );
     });
   }
-
-  static Widget _buildRatingChart(List<int> evaluationList) {
-    List<OpinionData> chartData = List.generate(5, (index) {
-      List<Color> colors = [
-        Color(0xfffcb29c),
-        Color(0xfff7a3b5),
-        Color(0xffa4d3fb),
-        Color(0xfff5c369),
-        Color(0xff7b9bcf),
-      ];
-      return OpinionData((index + 1).toString(),
-          evaluationList[index].toDouble(), colors[index]);
-    });
-
-    return SfCartesianChart(
-      primaryXAxis: CategoryAxis(
-        majorGridLines: MajorGridLines(width: 0),
-        axisLine: AxisLine(width: 0),
-      ),
-      primaryYAxis: NumericAxis(
-        majorGridLines: MajorGridLines(width: 0),
-        axisLine: AxisLine(width: 0),
-      ),
-      plotAreaBorderWidth: 0,
-      tooltipBehavior: TooltipBehavior(enable: true),
-      series: <CartesianSeries<OpinionData, String>>[
-        BarSeries<OpinionData, String>(
-          dataSource: chartData,
-          xValueMapper: (OpinionData data, _) => data.opinion,
-          yValueMapper: (OpinionData data, _) => data.count,
-          pointColorMapper: (OpinionData data, _) => data.color,
-          dataLabelSettings: DataLabelSettings(isVisible: true),
-        ),
-      ],
-    );
-  }
 }
-
-class OpinionData {
-  OpinionData(this.opinion, this.count, this.color);
-  final String opinion;
-  final double count;
-  final Color color;
-}
-
-final List<Color> contentColors = [
-  // 차트 컬러 리스트
-  Color(0xff7b9bcf),
-  Color(0xfff5c369),
-  Color(0xffa4d3fb),
-  Color(0xfff7a3b5),
-  Color(0xfffcb29c),
-  Color(0xffcab3e7), // mainTextcolor
-];
 
 class BarChartExample extends StatefulWidget {
-  const BarChartExample({super.key});
+  const BarChartExample({Key? key}) : super(key: key);
 
   @override
   _BarChartExampleState createState() => _BarChartExampleState();
 }
 
 class _BarChartExampleState extends State<BarChartExample> {
-  late SortingOrder _sortingOrder;
-
-  @override
-  void initState() {
-    super.initState();
-    _sortingOrder = SortingOrder.ascending; // 초기 정렬 설정을 오름차순으로 변경
-  }
-
-  void _toggleSortingOrder() {
-    setState(() {
-      _sortingOrder = _sortingOrder == SortingOrder.ascending
-          ? SortingOrder.descending
-          : SortingOrder.ascending;
-    });
-  }
+  int touchedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false, // 뒤로가기 버튼 제거
-        title: Text('퀴즈 차트'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.sort),
-            onPressed: _toggleSortingOrder,
+    return AspectRatio(
+      aspectRatio: 1.3,
+      child: Column(
+        children: <Widget>[
+          const SizedBox(
+            height: 18,
+          ),
+          Expanded(
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Consumer<QuizService>(
+                builder: (context, quizService, child) {
+                  List<Quiz> quizList = quizService.quizList;
+                  List<QuizVote> quizCount = quizService.quizCount;
+
+                  List<PieChartSectionData> sections =
+                      List.generate(quizList.length, (index) {
+                    final isTouched = index == touchedIndex;
+                    final fontSize = isTouched ? 25.0 : 16.0;
+                    final radius = isTouched ? 60.0 : 50.0;
+                    final double value = quizCount[index].count.toDouble();
+                    final double displayValue = value == 0 ? 0.1 : value;
+
+                    return PieChartSectionData(
+                      color: Colors.primaries[index % Colors.primaries.length],
+                      value: displayValue,
+                      title: '${quizCount[index].count}명',
+                      radius: radius,
+                      titleStyle: TextStyle(
+                        fontSize: fontSize,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        shadows: const [
+                          Shadow(color: Colors.black, blurRadius: 2)
+                        ],
+                      ),
+                    );
+                  });
+
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: PieChart(
+                          PieChartData(
+                            pieTouchData: PieTouchData(
+                              touchCallback:
+                                  (FlTouchEvent event, pieTouchResponse) {
+                                setState(() {
+                                  if (!event.isInterestedForInteractions ||
+                                      pieTouchResponse == null ||
+                                      pieTouchResponse.touchedSection == null) {
+                                    touchedIndex = -1;
+                                  } else {
+                                    // 해당 항목의 index를 touchedIndex로 설정하여 확대
+                                    touchedIndex = pieTouchResponse
+                                        .touchedSection!.touchedSectionIndex;
+                                  }
+                                });
+                              },
+                            ),
+                            borderData: FlBorderData(
+                              show: false,
+                            ),
+                            sectionsSpace: 0,
+                            centerSpaceRadius: 40,
+                            sections: sections,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      // 범례 추가 (opinion과 색상 매칭)
+                      Wrap(
+                        spacing: 10,
+                        runSpacing: 10,
+                        children: List.generate(quizList.length, (index) {
+                          return Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                width: 16,
+                                height: 16,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.primaries[
+                                      index % Colors.primaries.length],
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                quizList[index].question ?? "",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          );
+                        }),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 28,
           ),
         ],
       ),
-      body: Consumer2<QuizService, OpinionService>(
-          builder: (context, quizService, opinionService, child) {
-        List<Quiz> qzList = quizService.quizList; // 옵션 배열
-        List<QuizVote> qzCount = quizService.quizCount; // 옵션 선택 개수 배열
-
-        List<QuizData> sortedData = List.generate(qzList.length, (index) {
-          return QuizData(
-              qzList[index].question ?? '',
-              qzCount[index].count.toDouble(),
-              contentColors[index % contentColors.length]);
-        });
-
-        sortedData.sort((a, b) => a.count.compareTo(b.count));
-        if (_sortingOrder == SortingOrder.descending) {
-          sortedData = sortedData.reversed.toList();
-        }
-
-        return SfCartesianChart(
-          primaryXAxis: CategoryAxis(
-            majorGridLines: MajorGridLines(width: 0),
-            axisLine: AxisLine(width: 0),
-          ),
-          primaryYAxis: NumericAxis(
-            majorGridLines: MajorGridLines(width: 0),
-            axisLine: AxisLine(width: 0),
-          ),
-          plotAreaBorderWidth: 0,
-          legend: Legend(isVisible: false),
-          tooltipBehavior: TooltipBehavior(enable: true),
-          series: <CartesianSeries<QuizData, String>>[
-            BarSeries<QuizData, String>(
-              spacing: 0.2,
-              dataSource: sortedData,
-              xValueMapper: (QuizData data, _) => data.opinion,
-              yValueMapper: (QuizData data, _) => data.count,
-              pointColorMapper: (QuizData data, _) => data.color,
-              dataLabelSettings: DataLabelSettings(isVisible: true),
-            ),
-          ],
-        );
-      }),
     );
   }
-}
-
-class QuizData {
-  QuizData(this.opinion, this.count, this.color);
-  final String opinion;
-  final double count;
-  final Color color;
 }

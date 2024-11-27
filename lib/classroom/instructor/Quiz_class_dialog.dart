@@ -156,8 +156,8 @@ class _QuizClassDialogState extends State<QuizClassDialog> {
                           height: screenHeight * 0.06,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xfffbaf01),
-                              surfaceTintColor: Color(0xfffbaf01),
+                              backgroundColor: Color(0xff8e24aa),
+                              surfaceTintColor: Color(0xff8e24aa),
                               foregroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),

@@ -249,8 +249,6 @@ class _ClassEnterPageState extends State<ClassEnterPage> {
                       height: 50,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.deepPurple[400],
-                          surfaceTintColor: Colors.deepPurple[400],
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -277,7 +275,9 @@ class _ClassEnterPageState extends State<ClassEnterPage> {
                           }
                         },
                         child: Text("QR코드로 입장하기",
-                            style: TextStyle(fontSize: screenWidth * 0.04)),
+                            style: TextStyle(
+                                fontSize: screenWidth * 0.04,
+                                color: Colors.deepPurple[400])),
                       ),
                     ),
                   ),
@@ -289,7 +289,7 @@ class _ClassEnterPageState extends State<ClassEnterPage> {
                       height: 50,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xfff7f8fc),
+                          backgroundColor: Colors.deepPurple[400],
                           surfaceTintColor: Color(0xfff7f8fc),
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
@@ -405,8 +405,6 @@ class _ClassEnterPageState extends State<ClassEnterPage> {
                                           SizedBox(height: 10),
                                           ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  Colors.deepPurple[400],
                                               foregroundColor: Colors.white,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
@@ -460,8 +458,9 @@ class _ClassEnterPageState extends State<ClassEnterPage> {
                         child: Text(
                           "번호로 입장하기",
                           style: TextStyle(
-                              fontSize: screenWidth * 0.04,
-                              color: Colors.deepPurple[400]),
+                            color: Colors.white,
+                            fontSize: screenWidth * 0.04,
+                          ),
                         ),
                       ),
                     ),
