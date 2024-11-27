@@ -40,7 +40,7 @@ class AuthService {
         return;
       } else {
         //서버 오류로 인해 다시 로그인 해주세요
-        Dialogs.showErrorDialog(context, "서버 오류로 인해 다시 로그인 해주세요");
+        // Dialogs.showErrorDialog(context, "서버 오류로 인해 다시 로그인 해주세요");
       }
     } catch (e) {
       Dialogs.showErrorDialog(context, "시스템에러 인해 다시 로그인 해주세요");

@@ -98,9 +98,9 @@ class _ClassRoomPageState extends State<ClassRoomPage> {
               children: [
                 if (isLoading) CircularProgress.build(),
                 Positioned(
-                  left: screenWidth * 0.1,
-                  top: screenHeight * 0.1,
-                  child: Text(className,
+                  left: screenWidth * 0.6,
+                  top: screenHeight * 0.12,
+                  child: Text("$className ${userCount.userList[classId] ?? 0}명",
                       style: TextStyle(
                         fontSize: screenWidth * 0.06,
                         fontWeight: FontWeight.w900,
@@ -108,18 +108,8 @@ class _ClassRoomPageState extends State<ClassRoomPage> {
                       )),
                 ),
                 Positioned(
-                  left: screenWidth * 0.11,
-                  top: screenHeight * 0.15,
-                  child: Text('참여인원: ${userCount.userList[classId] ?? 0}명',
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.035,
-                        fontWeight: FontWeight.w100,
-                        fontFamily: 'NanumB',
-                      )),
-                ),
-                Positioned(
                   left: screenWidth * 0.1,
-                  top: screenHeight * 0.87 - 70,
+                  top: screenHeight * 0.84,
                   child: SizedBox(
                     width: screenWidth * 0.8,
                     child: Row(
@@ -148,14 +138,14 @@ class _ClassRoomPageState extends State<ClassRoomPage> {
                                   isLoading = false;
                                 });
                               },
-                              child: Text(
-                                "의견 초기화",
-                                style: TextStyle(fontSize: screenWidth * 0.039),
-                              ),
+                              child: Text("의견  초기화",
+                                  style:
+                                      TextStyle(fontSize: screenWidth * 0.039),
+                                  textAlign: TextAlign.center),
                             ),
                           ),
                         ),
-                        SizedBox(width: 30),
+                        SizedBox(width: 15),
                         Expanded(
                           child: SizedBox(
                             height: 45,
@@ -172,8 +162,46 @@ class _ClassRoomPageState extends State<ClassRoomPage> {
                                     context, widget.classRoomData, websocket);
                               },
                               child: Text(
-                                "퀴즈 생성하기",
+                                "퀴즈",
                                 style: TextStyle(fontSize: screenWidth * 0.039),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 15),
+                        Expanded(
+                          child: SizedBox(
+                            height: 45,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Color.fromARGB(130, 230, 230, 230),
+                                surfaceTintColor:
+                                    Color.fromARGB(130, 230, 230, 230),
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              onPressed: () async {
+                                // websocket?.unsubscribe();
+                                // websocket?.stomClient(jwt, context).deactivate();
+                                // opinionService.deleteAll();
+                                // 평가 페이지에서 평가 완료 후 결과 페이지로 이동
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        EvaluationResultPage(websocket),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                "종료",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: screenWidth * 0.05,
+                                ),
                               ),
                             ),
                           ),
@@ -184,45 +212,7 @@ class _ClassRoomPageState extends State<ClassRoomPage> {
                 ),
                 Positioned(
                   left: screenWidth * 0.1,
-                  top: screenHeight * 0.87,
-                  child: SizedBox(
-                    width: screenWidth * 0.8,
-                    height: screenHeight * 0.06,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(130, 230, 230, 230),
-                        surfaceTintColor: Color.fromARGB(130, 230, 230, 230),
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      onPressed: () async {
-                        // websocket?.unsubscribe();
-                        // websocket?.stomClient(jwt, context).deactivate();
-                        // opinionService.deleteAll();
-                        // 평가 페이지에서 평가 완료 후 결과 페이지로 이동
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                EvaluationResultPage(websocket),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        "수업 종료하기",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: screenWidth * 0.05,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  right: screenWidth * 0.1,
-                  top: screenHeight * 0.14,
+                  top: screenHeight * 0.11,
                   child: IconButton(
                     icon: Image.asset(
                       'assets/images/share_icon.png',
@@ -324,8 +314,8 @@ class _ClassRoomPageState extends State<ClassRoomPage> {
                   ),
                 ),
                 Positioned(
-                  right: screenWidth * 0.375, // 적절히 조정
-                  top: screenHeight * 0.14,
+                  left: screenWidth * 0.36, // 적절히 조정
+                  top: screenHeight * 0.11,
                   child: IconButton(
                     icon: Image.asset(
                       'assets/images/quiz.png', // 수정 아이콘 경로
@@ -344,8 +334,8 @@ class _ClassRoomPageState extends State<ClassRoomPage> {
                   ),
                 ),
                 Positioned(
-                  right: screenWidth * 0.23, // 적절히 조정
-                  top: screenHeight * 0.14,
+                  left: screenWidth * 0.23, // 적절히 조정
+                  top: screenHeight * 0.11,
                   child: IconButton(
                     icon: Image.asset(
                       'assets/images/edit.png', // 퀴즈 결과 창
@@ -360,10 +350,10 @@ class _ClassRoomPageState extends State<ClassRoomPage> {
                 ),
                 Positioned(
                   left: screenWidth * 0.1,
-                  top: screenHeight * 0.2,
+                  top: screenHeight * 0.16,
                   child: SizedBox(
                     width: screenWidth * 0.8,
-                    height: screenHeight * 0.55, // 차트 높이 조정
+                    height: screenHeight * 0.6, // 차트 높이 조정
                     child: BarChartExample(),
                   ),
                 ),
