@@ -371,7 +371,7 @@ class _ClassDetailPageState extends State<classDetailPage> {
                                 });
                                 websocket
                                     ?.opinionSend(opinionList[selectedRadio!]);
-                                // opinionService.setOpinionSend(false);
+                                opinionService.setOpinionSend(false);
                                 setState(() {
                                   isLoading = false;
                                 });
