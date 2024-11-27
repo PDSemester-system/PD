@@ -166,14 +166,14 @@ class _ClassDetailPageState extends State<classDetailPage> {
                     top: screenHeight * 0.01,
                     child: Text(className,
                         style: TextStyle(
-                          fontSize: screenWidth * 0.06,
+                          fontSize: screenWidth * 0.08,
                           fontWeight: FontWeight.w900,
                           fontFamily: 'NanumB',
                         )),
                   ),
                   Positioned(
-                    left: screenWidth * 0.11,
-                    top: screenHeight * 0.05,
+                    left: screenWidth * 0.68,
+                    top: screenHeight * 0.07,
                     child: Text('참여인원: ${userCount.userList[classId] ?? 0} 명',
                         style: TextStyle(
                           fontSize: screenWidth * 0.035,
@@ -182,19 +182,19 @@ class _ClassDetailPageState extends State<classDetailPage> {
                         )),
                   ),
                   Positioned(
-                    left: screenWidth * 0.11,
-                    top: screenHeight * 0.08,
+                    left: screenWidth * 0.53,
+                    top: screenHeight * 0.1,
                     child:
                         Text('수업 집중도:${buttonClickCount ?? 0} / ${dialogCount}',
                             style: TextStyle(
-                              fontSize: screenWidth * 0.035,
+                              fontSize: screenWidth * 0.05,
                               fontWeight: FontWeight.w100,
                               fontFamily: 'NanumB',
                             )),
                   ),
                   Positioned(
                     left: screenWidth * 0.1,
-                    top: screenHeight * 0.12,
+                    top: screenHeight * 0.14,
                     child: Text('의견 제출하기',
                         style: TextStyle(
                           fontSize: screenWidth * 0.06,
@@ -204,7 +204,7 @@ class _ClassDetailPageState extends State<classDetailPage> {
                   ),
                   Positioned(
                     left: screenWidth * 0.1,
-                    top: screenHeight * 0.17,
+                    top: screenHeight * 0.19,
                     child: Container(
                       height: 3,
                       width: screenWidth * 0.8,
@@ -212,19 +212,8 @@ class _ClassDetailPageState extends State<classDetailPage> {
                     ),
                   ),
                   Positioned(
-                    left: screenWidth * 0.6,
-                    top: screenHeight < 700
-                        ? screenHeight * -0.001
-                        : screenHeight * 0.01, // 선 위쪽에 배치
-                    child: Image.asset(
-                      'assets/images/opinion.png', // 이미지 경로를 설정해 주세요.
-                      width: screenWidth * 0.3, // 이미지의 너비를 설정해 주세요.
-                      height: screenHeight * 0.2, // 이미지의 높이를 설정해 주세요.
-                    ),
-                  ),
-                  Positioned(
                     left: screenWidth * 0.1,
-                    top: screenHeight * 0.19,
+                    top: screenHeight * 0.2,
                     child: Text('의견 선택 후 제출해 주세요',
                         style: TextStyle(
                             fontSize: screenWidth * 0.035, color: Colors.grey)),
